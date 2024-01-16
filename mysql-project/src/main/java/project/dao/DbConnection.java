@@ -6,13 +6,15 @@ import java.sql.SQLException;
 import project.exception.*;
 
 public class DbConnection {
-
+	
+	//Establishing values for DB access
 	private static final String SCHEMA = "project";
 	private static final String USER = "projuser";
 	private static final String PASSWORD = "project";
 	private static final String HOST = "localhost";
 	private static final int PORT = 3306;
 	
+	//creating the method to connect to the DB
 	public static Connection getConnection() {
 		String url = 
 				String.format("jdbc:mysql://%s:%d?user=%s&password=%s&useSSL=false", 
@@ -20,6 +22,7 @@ public class DbConnection {
 		
 		System.out.println("Connecting with url = " + url);
 		
+		//DB connection with catch block to throw an exception
 		try {
 			Connection conn = DriverManager.getConnection(url);
 			System.out.println("Successfully obtained connection!");

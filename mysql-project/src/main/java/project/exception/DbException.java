@@ -1,5 +1,6 @@
 package project.exception;
 
+//declaring exceptions, these are built into Java
 public class DbException extends RuntimeException {
 
 	public DbException() {
