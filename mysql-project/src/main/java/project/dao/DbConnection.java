@@ -1,15 +1,15 @@
-package recipies.dao;
+package project.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import recipies.exceptions.*;
+import project.exception.*;
 
 public class DbConnection {
 
-	private static final String SCHEMA = "recipies";
-	private static final String USER = "recipies";
-	private static final String PASSWORD = "recipies";
+	private static final String SCHEMA = "project";
+	private static final String USER = "projuser";
+	private static final String PASSWORD = "project";
 	private static final String HOST = "localhost";
 	private static final int PORT = 3306;
 	
@@ -31,3 +31,4 @@ public class DbConnection {
 	}
 	
 }
+
