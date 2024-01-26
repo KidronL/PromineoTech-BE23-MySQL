@@ -1,3 +1,5 @@
+USE project;
+
 DROP TABLE IF EXISTS project_category;
 DROP TABLE IF EXISTS category;
 DROP TABLE IF EXISTS step;

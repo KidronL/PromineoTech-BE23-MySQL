@@ -9,7 +9,7 @@ public class DbConnection {
 	
 	//Establishing values for DB access
 	private static final String SCHEMA = "project";
-	private static final String USER = "projuser";
+	private static final String USER = "project";
 	private static final String PASSWORD = "project";
 	private static final String HOST = "localhost";
 	private static final int PORT = 3306;
@@ -17,7 +17,7 @@ public class DbConnection {
 	//creating the method to connect to the DB
 	public static Connection getConnection() {
 		String url = 
-				String.format("jdbc:mysql://%s:%d?user=%s&password=%s&useSSL=false", 
+				String.format("jdbc:mysql://%s:%d?user=%s&password=%s&allowPublicKeyRetrieval=true&useSSL=false", 
 						HOST, PORT, SCHEMA, USER, PASSWORD);
 		
 		System.out.println("Connecting with url = " + url);
