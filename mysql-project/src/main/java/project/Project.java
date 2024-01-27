@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 
+import project.entity.NewProject;
 import project.exception.DbException;
 import project.service.ProjectService;
 
@@ -15,7 +16,8 @@ public class Project {
 		private ProjectService projectService = new ProjectService();
 		
 		private List<String> operations = List.of(
-				"1) Create and populate all tables"
+				"1) Create and populate all tables",
+				"2) Add a project"
 		);
 
 	public static void main(String[] args) {
@@ -40,6 +42,10 @@ public class Project {
 				createTables();
 				break;
 				
+			case 2:
+				addProject();
+				break;
+				
 				default:
 					System.out.println("Please enter a valid answer.");
 					break;
@@ -50,6 +56,26 @@ public class Project {
 	  }
 	}
 	
+	private void addProject() {
+		String name = getStringInput("Enter the project name");
+		Double estHours = getDoubleInput("Enter estimated hours for project");
+		Double actHours = getDoubleInput("Enter actual hours spent on project");
+		Integer difficulty = getIntInput("Enter the difficulty of the project (1-10)");
+		String notes = getStringInput("Enter the project notes");
+		
+		NewProject project = new NewProject();
+		
+		project.setProjectName(name);
+		project.setEstimatedHours(estHours);
+		project.setActualHours(actHours);
+		project.setDifficulty(difficulty);
+		project.setNotes(notes);
+		
+		NewProject dbProject = projectService.addProject(project);
+		System.out.println("Success in adding " + dbProject);
+		
+	}
+
 	//Logic to create tables
 	private void createTables() {
 		projectService.createAndPopulateTables();

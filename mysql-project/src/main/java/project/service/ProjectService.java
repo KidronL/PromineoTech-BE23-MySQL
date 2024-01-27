@@ -9,6 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import project.dao.ProjectDao;
+import project.entity.NewProject;
 import project.exception.DbException;
 
 //Class declaration to be instantiated as an object in the main Class
@@ -99,6 +100,10 @@ public class ProjectService {
 			throw new DbException(e);
 		}
 		
+	}
+
+	public NewProject addProject(NewProject project) {
+		return projectDao.insertProject(project);
 	}	
 
 }
