@@ -8,6 +8,7 @@ import java.nio.file.Paths;
 import java.util.LinkedList;
 import java.util.List;
 
+import project.Project;
 import project.dao.ProjectDao;
 import project.entity.NewProject;
 import project.exception.DbException;
@@ -104,6 +105,10 @@ public class ProjectService {
 
 	public NewProject addProject(NewProject project) {
 		return projectDao.insertProject(project);
+	}
+
+	public List<Project> fetchProjects() {
+		return projectDao.fetchAllProjects();
 	}	
 
 }

@@ -14,10 +14,12 @@ public class Project {
 		//Declaring variables for scanner and Project Service Object.
 		private Scanner scanner = new Scanner(System.in);
 		private ProjectService projectService = new ProjectService();
+		private NewProject project = new NewProject();
 		
 		private List<String> operations = List.of(
 				"1) Create and populate all tables",
-				"2) Add a project"
+				"2) Add a project",
+				"3) List projects"
 		);
 
 	public static void main(String[] args) {
@@ -46,6 +48,10 @@ public class Project {
 				addProject();
 				break;
 				
+			case 3:
+				listProjects();
+				break;
+				
 				default:
 					System.out.println("Please enter a valid answer.");
 					break;
@@ -56,6 +62,15 @@ public class Project {
 	  }
 	}
 	
+	private void listProjects() {
+		List<Project> projects = projectService.fetchProjects();
+		
+		System.out.println("\nProjects: ");
+		
+		projects.forEach(project -> System.out.println("    " + project.project.getProjectId() + ": " + project.project.getProjectName()));
+		
+	}
+
 	private void addProject() {
 		String name = getStringInput("Enter the project name");
 		Double estHours = getDoubleInput("Enter estimated hours for project");
