@@ -1,4 +1,4 @@
-package project.entity;
+package projects.entity;
 
 public class Step {
 	private Integer stepId;

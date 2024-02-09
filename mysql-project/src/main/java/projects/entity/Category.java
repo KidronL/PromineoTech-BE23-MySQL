@@ -1,4 +1,4 @@
-package project.entity;
+package projects.entity;
 
 public class Category {
 	private Integer categoryId;

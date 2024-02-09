@@ -1,4 +1,4 @@
-package project.service;
+package projects.service;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -7,11 +7,13 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
-import project.Project;
-import project.dao.ProjectDao;
-import project.entity.NewProject;
-import project.exception.DbException;
+import projects.ProjectApp;
+import projects.dao.ProjectDao;
+import projects.entity.Project;
+import projects.exception.DbException;
 
 //Class declaration to be instantiated as an object in the main Class
 public class ProjectService {
@@ -103,12 +105,21 @@ public class ProjectService {
 		
 	}
 
-	public NewProject addProject(NewProject project) {
+	public Project addProject(Project project) {
 		return projectDao.insertProject(project);
 	}
-
+	
+	//A method to call method in ProjectDao
 	public List<Project> fetchProjects() {
 		return projectDao.fetchAllProjects();
 	}	
+	
+	//A method to call method in ProjectDao
+	public Project fetchProjectById(Integer projectId) {
+		return projectDao.fetchProjectById(projectId).orElseThrow(
+				() -> new NoSuchElementException(
+						"Project with project ID= " + projectId 
+						+ " does not exist."));
+	}
 
 }

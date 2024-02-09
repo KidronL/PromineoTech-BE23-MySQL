@@ -1,13 +1,14 @@
-package project.entity;
+package projects.entity;
 
+import java.math.BigDecimal;
 import java.util.LinkedList;
 import java.util.List;
 
-public class NewProject {
+public class Project {
 	private Integer projectId;
 	private String projectName;
-	private Double estimatedHours;
-	private Double actualHours;
+	private BigDecimal estimatedHours;
+	private BigDecimal actualHours;
 	private Integer difficulty;
 	private String notes;
 	
@@ -27,17 +28,17 @@ public class NewProject {
 	public void setProjectName(String projectName) {
 		this.projectName = projectName;
 	}
-	public Double getEstimatedHours() {
+	public BigDecimal getEstimatedHours() {
 		return estimatedHours;
 	}
-	public void setEstimatedHours(Double estimatedHours) {
-		this.estimatedHours = estimatedHours;
+	public void setEstimatedHours(BigDecimal estHours) {
+		this.estimatedHours = estHours;
 	}
-	public Double getActualHours() {
+	public BigDecimal getActualHours() {
 		return actualHours;
 	}
-	public void setActualHours(Double actualHours) {
-		this.actualHours = actualHours;
+	public void setActualHours(BigDecimal actHours) {
+		this.actualHours = actHours;
 	}
 	public Integer getDifficulty() {
 		return difficulty;
@@ -67,8 +68,5 @@ public class NewProject {
 				+ estimatedHours + "\nActual Hours:" + actualHours + "\nDifficulty: " + difficulty + "\nNotes: " + notes
 				+ "\nMaterials: " + materials + "\nSteps: " + steps + "\nCategories: " + categories;
 	}
-	
-	
-	
 	
 }

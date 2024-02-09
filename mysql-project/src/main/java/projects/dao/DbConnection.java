@@ -1,9 +1,10 @@
-package project.dao;
+package projects.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import project.exception.*;
+
+import projects.exception.*;
 
 public class DbConnection {
 	
@@ -17,7 +18,7 @@ public class DbConnection {
 	//creating the method to connect to the DB
 	public static Connection getConnection() {
 		String url = 
-				String.format("jdbc:mysql://%s:%d/project?user=%s&password=%s&allowPublicKeyRetrieval=true&useSSL=false", 
+				String.format("jdbc:mysql://%s:%d/%s?user=%s&password=%s&allowPublicKeyRetrieval=true&useSSL=false", 
 						HOST, PORT, SCHEMA, USER, PASSWORD);
 		
 		System.out.println("Connecting with url = " + url);

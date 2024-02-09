@@ -1,29 +1,30 @@
-package project;
+package projects;
 
+import java.math.BigDecimal;
 //Imports for classes and methods
 import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 
-import project.entity.NewProject;
-import project.exception.DbException;
-import project.service.ProjectService;
+import projects.entity.Project;
+import projects.exception.DbException;
+import projects.service.ProjectService;
 
-public class Project {
+public class ProjectApp {
 	
 		//Declaring variables for scanner and Project Service Object.
 		private Scanner scanner = new Scanner(System.in);
 		private ProjectService projectService = new ProjectService();
-		private NewProject project = new NewProject();
+		private Project curProject;
 		
 		private List<String> operations = List.of(
-				"1) Create and populate all tables",
-				"2) Add a project",
-				"3) List projects"
+				"1) Add a project",
+				"2) List projects",
+				"3) Select a project"
 		);
 
 	public static void main(String[] args) {
-		new Project().menu();
+		new ProjectApp().menu();
 
 	}
 	
@@ -41,15 +42,15 @@ public class Project {
 				break;
 				
 			case 1:
-				createTables();
-				break;
-				
-			case 2:
 				addProject();
 				break;
 				
-			case 3:
+			case 2:
 				listProjects();
+				break;
+				
+			case 3:
+				selectProject();
 				break;
 				
 				default:
@@ -62,23 +63,37 @@ public class Project {
 	  }
 	}
 	
+	//Method to select a project using a method in ProjectService
+	private void selectProject() {
+		listProjects();
+		Integer projectId = getIntInput("Enter a project ID to select a project");
+		
+		curProject = null;
+		
+		curProject = projectService.fetchProjectById(projectId);
+		
+		System.out.println("Current Project: \n" + curProject);
+		
+	}
+	
+	//Method to list the projects using a method in ProjectService
 	private void listProjects() {
 		List<Project> projects = projectService.fetchProjects();
 		
 		System.out.println("\nProjects: ");
 		
-		projects.forEach(project -> System.out.println("    " + project.project.getProjectId() + ": " + project.project.getProjectName()));
+		projects.forEach(project -> System.out.println("    " + project.getProjectId() + ": " + project.getProjectName()));
 		
 	}
 
 	private void addProject() {
 		String name = getStringInput("Enter the project name");
-		Double estHours = getDoubleInput("Enter estimated hours for project");
-		Double actHours = getDoubleInput("Enter actual hours spent on project");
+		BigDecimal estHours = getDecimalInput("Enter estimated hours for project");
+		BigDecimal actHours = getDecimalInput("Enter actual hours spent on project");
 		Integer difficulty = getIntInput("Enter the difficulty of the project (1-10)");
 		String notes = getStringInput("Enter the project notes");
 		
-		NewProject project = new NewProject();
+		Project project = new Project();
 		
 		project.setProjectName(name);
 		project.setEstimatedHours(estHours);
@@ -86,17 +101,17 @@ public class Project {
 		project.setDifficulty(difficulty);
 		project.setNotes(notes);
 		
-		NewProject dbProject = projectService.addProject(project);
-		System.out.println("Success in adding " + dbProject);
+		Project dbProject = projectService.addProject(project);
+		System.out.println("Success in adding \n" + dbProject);
 		
 	}
 
 	//Logic to create tables
-	private void createTables() {
+	/*private void createTables() {
 		projectService.createAndPopulateTables();
 		System.out.println("\nTables have been created");
 		
-	}
+	}*/
 
 	//Logic to exit the menu
 	private boolean exitMenu() {
@@ -145,15 +160,15 @@ public class Project {
 		return line.isBlank() ? null : line.trim();
 	}
 	
-	private Double getDoubleInput(String prompt) {
-		String input = getStringInput(prompt);
+	private BigDecimal getDecimalInput(String prompt) {
+			String input = getStringInput(prompt);
 		
 		if(Objects.isNull(input)) {
 			return null;
 		}
 		
 		try {
-			return Double.parseDouble(input);
+			return new BigDecimal(input).setScale(2);
 		}
 		catch(NumberFormatException e) {
 			throw new DbException(input + " is not valid number.");
