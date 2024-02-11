@@ -122,4 +122,19 @@ public class ProjectService {
 						+ " does not exist."));
 	}
 
+	//A pass through method in order to call the method to update the project
+	public void modifyProjectDetails(Project project) {
+		if(!projectDao.modifyProjectDetails(project)) {
+			throw new DbException("Project with ID=" + project.getProjectId() + " not found");
+		}
+		
+	}
+
+	//A pass through method in order to call the method to delete the project.
+	public void deleteProject(Integer projectId) {
+		if(!projectDao.deleteProject(projectId)) {
+			throw new DbException("Project with ID=" + projectId + " does not exist.");
+		}
+	}
+
 }
